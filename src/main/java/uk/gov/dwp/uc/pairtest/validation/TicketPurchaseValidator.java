@@ -22,6 +22,7 @@ public class TicketPurchaseValidator {
             if (request == null) throw new InvalidPurchaseException("An individual ticket is null");
             if (request.getNoOfTickets() <= 0) throw new InvalidPurchaseException("No tickets found in request");
             totalTickets += request.getNoOfTickets();
+            if (request.getTicketType() == null) throw new InvalidPurchaseException("Ticket type is null");
             switch (request.getTicketType()) {
                 case ADULT -> adultTickets += request.getNoOfTickets();
                 case CHILD -> childTickets += request.getNoOfTickets();

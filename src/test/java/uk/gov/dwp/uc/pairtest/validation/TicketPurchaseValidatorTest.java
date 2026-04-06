@@ -110,4 +110,10 @@ public class TicketPurchaseValidatorTest {
             new TicketTypeRequest(TicketTypeRequest.Type.INFANT, 1)
         ));
     }
+    @Test
+    void shouldRejectPurchaseWhenTicketTypeIsNull() {
+        assertThrows(InvalidPurchaseException.class, () ->
+            validator.validate(1L, new TicketTypeRequest(null, 1))
+        );
+    }
 }
