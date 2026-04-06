@@ -49,4 +49,14 @@ public class TicketServiceImplTest {
 
         verify(paymentService).makePayment(1L, 25);
     }
+
+    @Test
+    void shouldCalculateCorrectPriceForMixedTickets() {
+        ticketService.purchaseTickets(1L,
+            new TicketTypeRequest(TicketTypeRequest.Type.INFANT, 1),
+            new TicketTypeRequest(TicketTypeRequest.Type.CHILD, 2),
+            new TicketTypeRequest(TicketTypeRequest.Type.ADULT, 2));
+
+        verify(paymentService).makePayment(1L, 80);
+    }
 }
