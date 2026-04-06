@@ -12,6 +12,9 @@ import uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException;
 import uk.gov.dwp.uc.pairtest.validation.TicketPurchaseValidator;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -114,5 +117,24 @@ public class TicketServiceImplTest {
 
         verify(paymentService).makePayment(1L, 575);
         verify(seatReservationService).reserveSeat(1L, 25);
+    }
+
+    /*Edge cases*/
+    @Test
+    void shouldHandleMultipleTicketTypeRequestsOfTheSameType() {
+        ticketService.purchaseTickets(1L,
+            new TicketTypeRequest(TicketTypeRequest.Type.ADULT, 5),
+            new TicketTypeRequest(TicketTypeRequest.Type.ADULT, 5));
+
+        verify(paymentService).makePayment(1L, 250);
+        verify(seatReservationService).reserveSeat(1L, 10);
+    }
+    @Test
+    void shouldNotCallPaymentOrReservationServiceOnValidationFailure() {
+        assertThrows(InvalidPurchaseException.class, () ->
+            ticketService.purchaseTickets(1L, new TicketTypeRequest(TicketTypeRequest.Type.ADULT, 0))
+        );
+        verify(paymentService, never()).makePayment(anyLong(),anyInt());
+        verify(seatReservationService, never()).reserveSeat(anyLong(),anyInt());
     }
 }
