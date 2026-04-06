@@ -16,12 +16,10 @@ public class TicketPurchaseValidatorTest {
     void shouldRejectPurchaseWhenAccountIDIsZero() {
         assertThrows(InvalidPurchaseException.class, () -> validator.validate(0L));
     }
-
     @Test
     void shouldRejectPurchaseWhenAccountIDIsNegative() {
         assertThrows(InvalidPurchaseException.class, () -> validator.validate(-1L));
     }
-
     @Test
     void shouldAcceptPurchaseWhenAccountIDIsPositive() {
         assertDoesNotThrow(() -> validator.validate(1L,new TicketTypeRequest(TicketTypeRequest.Type.ADULT,1)));
@@ -36,4 +34,9 @@ public class TicketPurchaseValidatorTest {
     void shouldRejectPurchaseWhenTicketRequestArrayIsEmpty() {
         assertThrows(InvalidPurchaseException.class, () -> validator.validate(1L));
     }
+    @Test
+    void shouldRejectPurchaseWhenAnyIndividualTicketRequestIsNull() {
+        assertThrows(InvalidPurchaseException.class, () -> validator.validate(1L, (TicketTypeRequest) null));
+    }
+
 }
