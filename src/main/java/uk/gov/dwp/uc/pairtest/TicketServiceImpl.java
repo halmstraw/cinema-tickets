@@ -5,8 +5,6 @@ import uk.gov.dwp.uc.pairtest.domain.TicketTypeRequest;
 import uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException;
 import uk.gov.dwp.uc.pairtest.validation.TicketPurchaseValidator;
 
-import java.util.Objects;
-
 public class TicketServiceImpl implements TicketService {
     /**
      * Should only have private methods other than the one below.
@@ -34,5 +32,4 @@ public class TicketServiceImpl implements TicketService {
         ticketCost += childTickets * 15;
         paymentService.makePayment(accountId,ticketCost);
     }
-
 }
