@@ -69,4 +69,14 @@ public class TicketServiceImplTest {
 
         verify(seatReservationService).reserveSeat(1L,1);
     }
+
+    @Test
+    void shouldReserveSeatsForAdultsAndChildrenButNotInfants() {
+        ticketService.purchaseTickets(1L,
+            new TicketTypeRequest(TicketTypeRequest.Type.INFANT, 1),
+            new TicketTypeRequest(TicketTypeRequest.Type.CHILD, 2),
+            new TicketTypeRequest(TicketTypeRequest.Type.ADULT, 2));
+
+        verify(seatReservationService).reserveSeat(1L, 4);
+    }
 }
