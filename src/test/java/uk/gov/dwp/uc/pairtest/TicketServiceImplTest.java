@@ -8,8 +8,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import thirdparty.paymentgateway.TicketPaymentService;
 import thirdparty.seatbooking.SeatReservationService;
 import uk.gov.dwp.uc.pairtest.domain.TicketTypeRequest;
+import uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException;
 import uk.gov.dwp.uc.pairtest.validation.TicketPurchaseValidator;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -78,5 +80,13 @@ public class TicketServiceImplTest {
             new TicketTypeRequest(TicketTypeRequest.Type.ADULT, 2));
 
         verify(seatReservationService).reserveSeat(1L, 4);
+    }
+
+    @Test
+    void shouldReserveZeroSeatsForInfantOnly() {
+        assertThrows(InvalidPurchaseException.class, () ->
+            ticketService.purchaseTickets(1L, new TicketTypeRequest(TicketTypeRequest.Type.INFANT, 1))
+        );
+
     }
 }
