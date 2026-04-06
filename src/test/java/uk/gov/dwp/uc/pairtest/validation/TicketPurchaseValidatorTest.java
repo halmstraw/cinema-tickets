@@ -3,6 +3,7 @@ package uk.gov.dwp.uc.pairtest.validation;
 import org.junit.jupiter.api.Test;
 import uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TicketPurchaseValidatorTest {
@@ -17,6 +18,11 @@ public class TicketPurchaseValidatorTest {
     @Test
     void shouldRejectPurchaseWhenAccountIDIsNegative() {
         assertThrows(InvalidPurchaseException.class, () -> validator.validate(-1L));
+    }
+
+    @Test
+    void shouldAcceptPurchaseWhenAccountIDIsPositive() {
+        assertDoesNotThrow(() -> validator.validate(1L));
     }
 
 }
