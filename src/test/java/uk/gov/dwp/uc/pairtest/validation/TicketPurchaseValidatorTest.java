@@ -10,6 +10,7 @@ public class TicketPurchaseValidatorTest {
 
     private final TicketPurchaseValidator validator = new TicketPurchaseValidator();
 
+    /* Account Validation */
     @Test
     void shouldRejectPurchaseWhenAccountIDIsZero() {
         assertThrows(InvalidPurchaseException.class, () -> validator.validate(0L));
@@ -25,4 +26,9 @@ public class TicketPurchaseValidatorTest {
         assertDoesNotThrow(() -> validator.validate(1L));
     }
 
+    /* Input validation */
+    @Test
+    void shouldRejectPurchaseWhenTicketRequestArrayIsNull() {
+        assertThrows(InvalidPurchaseException.class, () -> validator.validate(1L,null));
+    }
 }
