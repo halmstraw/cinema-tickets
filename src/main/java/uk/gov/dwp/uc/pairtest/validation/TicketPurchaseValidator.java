@@ -9,6 +9,10 @@ public class TicketPurchaseValidator {
         if (accountId <= 0L) {
             throw new InvalidPurchaseException();
         }
+
+        if (ticketTypeRequests == null) {
+            throw new InvalidPurchaseException();
+        }
     }
 
 }
