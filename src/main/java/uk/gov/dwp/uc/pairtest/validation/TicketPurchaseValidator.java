@@ -5,6 +5,8 @@ import uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException;
 
 public class TicketPurchaseValidator {
 
+    public static final int MAXIMUM_TICKET_PURCHASE = 25;
+
     public void validate(Long accountId, TicketTypeRequest... ticketTypeRequests) throws InvalidPurchaseException {
         validateAccountId(accountId);
         validateRequests(ticketTypeRequests);
@@ -30,7 +32,7 @@ public class TicketPurchaseValidator {
             }
         }
 
-        if (totalTickets > 25) throw new InvalidPurchaseException("Number of tickets exceeds maximum of 25");
+        if (totalTickets > MAXIMUM_TICKET_PURCHASE) throw new InvalidPurchaseException("Number of tickets exceeds maximum of 25");
         if ((childTickets > 0 || infantTickets > 0) && adultTickets == 0) throw new InvalidPurchaseException("No adult tickets purchased with infant or child");
         if (infantTickets > adultTickets) throw new InvalidPurchaseException("Infant tickets number exceeds adult tickets");
     }

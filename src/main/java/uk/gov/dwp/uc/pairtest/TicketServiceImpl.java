@@ -7,6 +7,8 @@ import uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException;
 import uk.gov.dwp.uc.pairtest.validation.TicketPurchaseValidator;
 
 public class TicketServiceImpl implements TicketService {
+    public static final int ADULT_TICKET_PRICE = 25;
+    public static final int CHILD_TICKET_PRICE = 15;
     /**
      * Should only have private methods other than the one below.
      */
@@ -31,8 +33,8 @@ public class TicketServiceImpl implements TicketService {
                 case CHILD -> childTickets += request.getNoOfTickets();
             }
         }
-        int totalAmountToPay = adultTickets * 25;
-        totalAmountToPay += childTickets * 15;
+        int totalAmountToPay = adultTickets * ADULT_TICKET_PRICE;
+        totalAmountToPay += childTickets * CHILD_TICKET_PRICE;
         paymentService.makePayment(accountId, totalAmountToPay);
 
         int totalSeatsToAllocate = adultTickets;
