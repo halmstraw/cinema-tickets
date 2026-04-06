@@ -18,7 +18,7 @@ target/site/jacoco/index.html
 ```
 
 ## Design note
-Ticket purchase validation moved into a dedicated class.  This separates business rule validation from service orchestration.  Each rule produces a specific error message to aid debud.
+Ticket purchase validation moved into a dedicated class.  This separates business rule validation from service orchestration.  Each rule produces a specific error message to aid debugging.
 
 Ticket prices are defined as constants associated with the ticket type avoiding magic numbers, and allowing simpler future updates.
 
