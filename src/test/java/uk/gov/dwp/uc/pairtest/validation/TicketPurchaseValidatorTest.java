@@ -1,6 +1,7 @@
 package uk.gov.dwp.uc.pairtest.validation;
 
 import org.junit.jupiter.api.Test;
+import uk.gov.dwp.uc.pairtest.domain.TicketTypeRequest;
 import uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -23,7 +24,7 @@ public class TicketPurchaseValidatorTest {
 
     @Test
     void shouldAcceptPurchaseWhenAccountIDIsPositive() {
-        assertDoesNotThrow(() -> validator.validate(1L));
+        assertDoesNotThrow(() -> validator.validate(1L,new TicketTypeRequest(TicketTypeRequest.Type.ADULT,1)));
     }
 
     /* Input validation */
