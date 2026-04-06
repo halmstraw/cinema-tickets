@@ -96,4 +96,11 @@ public class TicketPurchaseValidatorTest {
             new TicketTypeRequest(TicketTypeRequest.Type.ADULT,1)
         ));
     }
+    @Test
+    void shouldAcceptPurchaseWhenInfantsEqualsAdults() {
+        assertDoesNotThrow(() -> validator.validate(1L,
+            new TicketTypeRequest(TicketTypeRequest.Type.ADULT,1),
+            new TicketTypeRequest(TicketTypeRequest.Type.INFANT,1)
+        ));
+    }
 }
