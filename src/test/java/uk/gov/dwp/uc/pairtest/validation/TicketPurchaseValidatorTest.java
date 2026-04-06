@@ -13,4 +13,10 @@ public class TicketPurchaseValidatorTest {
     void shouldRejectPurchaseWhenAccountIDIsZero() {
         assertThrows(InvalidPurchaseException.class, () -> validator.validate(0L));
     }
+
+    @Test
+    void shouldRejectPurchaseWhenAccountIDIsNegative() {
+        assertThrows(InvalidPurchaseException.class, () -> validator.validate(-1L));
+    }
+
 }
