@@ -31,5 +31,6 @@ public class TicketPurchaseValidator {
 
         if (totalTickets > 25) throw new InvalidPurchaseException();
         if ((childTickets > 0 || infantTickets > 0) && adultTickets == 0) throw new InvalidPurchaseException();
+        if (infantTickets > adultTickets) throw new InvalidPurchaseException();
     }
 }
