@@ -19,6 +19,9 @@ public class TicketPurchaseValidator {
             if (request == null) {
                 throw new InvalidPurchaseException();
             }
+            if (request.getNoOfTickets() <= 0) {
+                throw new InvalidPurchaseException();
+            }
             totalTickets += request.getNoOfTickets();
         }
         if (totalTickets > 25) {
