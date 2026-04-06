@@ -2,8 +2,8 @@
 Implementation of the DWP cinema ticket purchasing coding exercise.
 
 ## Prerequisites
-- Java 21
-- Maven 4
+- Java 21+
+- Maven 3.8+
 
 ## Build and test
 
