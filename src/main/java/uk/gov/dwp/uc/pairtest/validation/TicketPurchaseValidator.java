@@ -15,6 +15,9 @@ public class TicketPurchaseValidator {
         }
 
         int totalTickets = 0;
+        int adultTickets = 0;
+        int childTickets = 0;
+
         for (TicketTypeRequest request : ticketTypeRequests) {
             if (request == null) {
                 throw new InvalidPurchaseException();
@@ -23,8 +26,15 @@ public class TicketPurchaseValidator {
                 throw new InvalidPurchaseException();
             }
             totalTickets += request.getNoOfTickets();
+            switch (request.getTicketType()) {
+                case ADULT -> adultTickets += request.getNoOfTickets();
+                case CHILD -> childTickets += request.getNoOfTickets();
+            }
         }
         if (totalTickets > 25) {
+            throw new InvalidPurchaseException();
+        }
+        if ((childTickets > 0) && adultTickets == 0){
             throw new InvalidPurchaseException();
         }
     }
