@@ -14,10 +14,15 @@ public class TicketPurchaseValidator {
             throw new InvalidPurchaseException();
         }
 
+        int totalTickets = 0;
         for (TicketTypeRequest request : ticketTypeRequests) {
             if (request == null) {
                 throw new InvalidPurchaseException();
             }
+            totalTickets += request.getNoOfTickets();
+        }
+        if (totalTickets > 25) {
+            throw new InvalidPurchaseException();
         }
     }
 
