@@ -24,6 +24,10 @@ public class TicketPurchaseValidatorTest {
     void shouldAcceptPurchaseWhenAccountIDIsPositive() {
         assertDoesNotThrow(() -> validator.validate(1L,new TicketTypeRequest(TicketTypeRequest.Type.ADULT,1)));
     }
+    @Test
+    void shouldRejectPurchaseWhenAccountIdIsNull() {
+        assertThrows(InvalidPurchaseException.class, () -> validator.validate(null));
+    }
 
     /* Input validation */
     @Test

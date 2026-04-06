@@ -13,7 +13,7 @@ public class TicketPurchaseValidator {
     }
 
     private void validateAccountId(Long accountId) {
-        if (accountId <= 0L) throw new InvalidPurchaseException("Account Id is 0 or negative number");
+        if (accountId == null || accountId <= 0L) throw new InvalidPurchaseException("Account Id is 0 or negative number");
     }
 
     private void validateRequests(TicketTypeRequest... ticketTypeRequests) {
