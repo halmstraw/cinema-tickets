@@ -66,4 +66,11 @@ public class TicketPurchaseValidatorTest {
     void shouldRejectPurchaseWhenOnlyInfantTicketsRequested() {
         assertThrows(InvalidPurchaseException.class, () -> validator.validate(1L, new TicketTypeRequest(TicketTypeRequest.Type.INFANT,1)));
     }
+    @Test
+    void shouldRejectPurchaseWhenChildAndInfantTicketsRequestedWithoutAdult() {
+        assertThrows(InvalidPurchaseException.class, () -> validator.validate(1L,
+            new TicketTypeRequest(TicketTypeRequest.Type.INFANT,1),
+            new TicketTypeRequest(TicketTypeRequest.Type.CHILD,1)
+        ));
+    }
 }
