@@ -6,7 +6,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import thirdparty.paymentgateway.TicketPaymentService;
-import thirdparty.paymentgateway.TicketPaymentServiceImpl;
 import thirdparty.seatbooking.SeatReservationService;
 import uk.gov.dwp.uc.pairtest.domain.TicketTypeRequest;
 
@@ -16,7 +15,6 @@ import static org.mockito.Mockito.verify;
 public class TicketServiceImplTest {
 
     @Mock private TicketPaymentService paymentService;
-    @Mock private SeatReservationService seatReservationService;
     @InjectMocks private TicketServiceImpl ticketService;
 
     @Test
