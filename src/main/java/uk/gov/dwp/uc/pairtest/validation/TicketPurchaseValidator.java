@@ -6,7 +6,7 @@ import uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException;
 public class TicketPurchaseValidator {
 
     public void validate(Long accountId, TicketTypeRequest... ticketTypeRequests) throws InvalidPurchaseException {
-        if (accountId == 0L) {
+        if (accountId <= 0L) {
             throw new InvalidPurchaseException();
         }
     }
