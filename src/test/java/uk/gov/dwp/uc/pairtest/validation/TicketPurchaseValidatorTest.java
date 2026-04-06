@@ -31,4 +31,8 @@ public class TicketPurchaseValidatorTest {
     void shouldRejectPurchaseWhenTicketRequestArrayIsNull() {
         assertThrows(InvalidPurchaseException.class, () -> validator.validate(1L,null));
     }
+    @Test
+    void shouldRejectPurchaseWhenTicketRequestArrayIsEmpty() {
+        assertThrows(InvalidPurchaseException.class, () -> validator.validate(1L));
+    }
 }
