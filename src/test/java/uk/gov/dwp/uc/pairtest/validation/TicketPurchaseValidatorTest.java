@@ -28,7 +28,7 @@ public class TicketPurchaseValidatorTest {
     /* Input validation */
     @Test
     void shouldRejectPurchaseWhenTicketRequestArrayIsNull() {
-        assertThrows(InvalidPurchaseException.class, () -> validator.validate(1L,null));
+        assertThrows(InvalidPurchaseException.class, () -> validator.validate(1L, (TicketTypeRequest[]) null));
     }
     @Test
     void shouldRejectPurchaseWhenTicketRequestArrayIsEmpty() {
@@ -52,5 +52,8 @@ public class TicketPurchaseValidatorTest {
     void shouldRejectPurchaseWhenAnyTicketTypeHasNegativeQuantity() {
         assertThrows(InvalidPurchaseException.class, () -> validator.validate(1L, new TicketTypeRequest(TicketTypeRequest.Type.ADULT,-1)));
     }
-
+    @Test
+    void shouldRejectPurchaseWhenAnyTicketTypeHasZeroQuantity() {
+        assertThrows(InvalidPurchaseException.class, () -> validator.validate(1L, new TicketTypeRequest(TicketTypeRequest.Type.ADULT,0)));
+    }
 }
