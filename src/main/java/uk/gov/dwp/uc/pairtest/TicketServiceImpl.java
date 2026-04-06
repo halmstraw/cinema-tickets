@@ -31,8 +31,11 @@ public class TicketServiceImpl implements TicketService {
                 case CHILD -> childTickets += request.getNoOfTickets();
             }
         }
-        int ticketCost = adultTickets * 25;
-        ticketCost += childTickets * 15;
-        paymentService.makePayment(accountId,ticketCost);
+        int totalAmountToPay = adultTickets * 25;
+        totalAmountToPay += childTickets * 15;
+        paymentService.makePayment(accountId, totalAmountToPay);
+
+        int totalSeatsToAllocate = adultTickets;
+        seatReservationService.reserveSeat(accountId, totalSeatsToAllocate);
     }
 }
