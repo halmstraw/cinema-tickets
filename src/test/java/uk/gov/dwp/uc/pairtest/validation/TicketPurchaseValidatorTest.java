@@ -39,4 +39,10 @@ public class TicketPurchaseValidatorTest {
         assertThrows(InvalidPurchaseException.class, () -> validator.validate(1L, (TicketTypeRequest) null));
     }
 
+    /* Ticket quantity validation */
+    @Test
+    void shouldRejectPurchaseWhenTotalTicketsExceeds25() {
+        assertThrows(InvalidPurchaseException.class, () -> validator.validate(1L, new TicketTypeRequest(TicketTypeRequest.Type.ADULT,26)));
+    }
+
 }
