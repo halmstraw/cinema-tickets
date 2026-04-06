@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import thirdparty.paymentgateway.TicketPaymentService;
+import thirdparty.seatbooking.SeatReservationService;
 import uk.gov.dwp.uc.pairtest.domain.TicketTypeRequest;
 import uk.gov.dwp.uc.pairtest.validation.TicketPurchaseValidator;
 
@@ -15,13 +16,14 @@ import static org.mockito.Mockito.verify;
 public class TicketServiceImplTest {
 
     @Mock private TicketPaymentService paymentService;
+    @Mock private SeatReservationService seatReservationService;
 
     private final TicketPurchaseValidator validator = new TicketPurchaseValidator();
     private TicketServiceImpl ticketService;
 
     @BeforeEach
     void setUp() {
-        ticketService = new TicketServiceImpl(paymentService, validator);
+        ticketService = new TicketServiceImpl(paymentService, seatReservationService, validator);
     }
 
     @Test
@@ -58,5 +60,13 @@ public class TicketServiceImplTest {
             new TicketTypeRequest(TicketTypeRequest.Type.ADULT, 2));
 
         verify(paymentService).makePayment(1L, 80);
+    }
+
+    @Test
+    void shouldReserveOneSeatForSingleAdultTicket() {
+        ticketService.purchaseTickets(1L,
+            new TicketTypeRequest(TicketTypeRequest.Type.ADULT, 1));
+
+        verify(seatReservationService).reserveSeat(1L,1);
     }
 }
