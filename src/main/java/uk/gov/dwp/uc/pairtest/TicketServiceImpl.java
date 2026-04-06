@@ -23,13 +23,15 @@ public class TicketServiceImpl implements TicketService {
     public void purchaseTickets(Long accountId, TicketTypeRequest... ticketTypeRequests) throws InvalidPurchaseException {
         validator.validate(accountId,ticketTypeRequests);
 
-        int adultTickets = 0;
+        int adultTickets = 0, childTickets = 0;
         for (TicketTypeRequest request : ticketTypeRequests) {
-            if (Objects.requireNonNull(request.getTicketType()) == TicketTypeRequest.Type.ADULT) {
-                adultTickets += request.getNoOfTickets();
+            switch (request.getTicketType()) {
+                case ADULT -> adultTickets += request.getNoOfTickets();
+                case CHILD -> childTickets += request.getNoOfTickets();
             }
         }
         int ticketCost = adultTickets * 25;
+        ticketCost += childTickets * 15;
         paymentService.makePayment(accountId,ticketCost);
     }
 
