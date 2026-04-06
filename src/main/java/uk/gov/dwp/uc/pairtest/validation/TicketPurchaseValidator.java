@@ -11,16 +11,16 @@ public class TicketPurchaseValidator {
     }
 
     private void validateAccountId(Long accountId) {
-        if (accountId <= 0L) throw new InvalidPurchaseException();
+        if (accountId <= 0L) throw new InvalidPurchaseException("Account Id is 0 or negative number");
     }
 
     private void validateRequests(TicketTypeRequest... ticketTypeRequests) {
-        if (ticketTypeRequests == null || ticketTypeRequests.length == 0) throw new InvalidPurchaseException();
+        if (ticketTypeRequests == null || ticketTypeRequests.length == 0) throw new InvalidPurchaseException("TicketTypeRequest is null or empty");
 
         int totalTickets = 0, adultTickets = 0, childTickets = 0, infantTickets = 0;
         for (TicketTypeRequest request : ticketTypeRequests) {
-            if (request == null) throw new InvalidPurchaseException();
-            if (request.getNoOfTickets() <= 0) throw new InvalidPurchaseException();
+            if (request == null) throw new InvalidPurchaseException("An individual ticket is null");
+            if (request.getNoOfTickets() <= 0) throw new InvalidPurchaseException("No tickets found in request");
             totalTickets += request.getNoOfTickets();
             switch (request.getTicketType()) {
                 case ADULT -> adultTickets += request.getNoOfTickets();
@@ -29,8 +29,8 @@ public class TicketPurchaseValidator {
             }
         }
 
-        if (totalTickets > 25) throw new InvalidPurchaseException();
-        if ((childTickets > 0 || infantTickets > 0) && adultTickets == 0) throw new InvalidPurchaseException();
-        if (infantTickets > adultTickets) throw new InvalidPurchaseException();
+        if (totalTickets > 25) throw new InvalidPurchaseException("Number of tickets exceeds maximum of 25");
+        if ((childTickets > 0 || infantTickets > 0) && adultTickets == 0) throw new InvalidPurchaseException("No adult tickets purchased with infant or child");
+        if (infantTickets > adultTickets) throw new InvalidPurchaseException("Infant tickets number exceeds adult tickets");
     }
 }
