@@ -87,4 +87,13 @@ public class TicketPurchaseValidatorTest {
             new TicketTypeRequest(TicketTypeRequest.Type.INFANT,1)
         ));
     }
+
+    /* Infant ratio test */
+    @Test
+    void shouldRejectPurchaseWhenMoreInfantsThanAdults() {
+        assertThrows(InvalidPurchaseException.class, () -> validator.validate(1L,
+            new TicketTypeRequest(TicketTypeRequest.Type.INFANT,2),
+            new TicketTypeRequest(TicketTypeRequest.Type.ADULT,1)
+        ));
+    }
 }
